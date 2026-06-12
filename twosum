@@ -1,0 +1,23 @@
+#LEETCODE PBLMN 1
+PBLM:
+     Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+Constraints:
+2 <= nums.length <= 104
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+Only one valid answer exists.
+ 
+ SOLUTION:
+       class Solution(object):
+    def twoSum(self, nums, target):
+        for i in range(0,len(nums)):
+            #traverse through the each element in the nums and find its compliment
+            complement=target-nums[i]
+            if complement in nums[i+1:len(nums)]:
+                #check whether the compliment is present in the list or not
+                #if it is present return indices of the particular no. and its complement
+                #else continue
+               return i,nums[i+1:len(nums)].index(complement)+i+1           
+        
