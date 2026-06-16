@@ -1,0 +1,37 @@
+#LEETCODE PROBLEM 3612
+PROBLEM:
+       You are given a string s consisting of lowercase English letters and the special characters: *, #, and %.
+Build a new string result by processing s according to the following rules from left to right:
+If the letter is a lowercase English letter append it to result.
+A '*' removes the last character from result, if it exists.
+A '#' duplicates the current result and appends it to itself.
+A '%' reverses the current result.
+Return the final string result after processing all characters in s.
+Constraints:
+1 <= s.length <= 20
+s consists of only lowercase English letters and special characters *, #, and %.
+SOLUTION:
+        class Solution(object):
+    def processStr(self, s):
+        result=[]
+        #LET US CONSIDER RESULT IN LIST FORMAT FOR EASY ACCESIBILITY
+        for i in s:
+            if 'a'<=i<='z':
+                result.append(i)
+                #FOR ALPHABETS APPEND IT
+            elif i=='*':
+                if result==[]:
+                    continue
+                    #WE CANT POP IF LIST IS EMPTY
+                else:
+                    result.pop()    
+            elif i=='#':
+                temp=result[:]
+                result.extend(temp)
+            #ADD THE DUPLICATE
+            else:
+                result=result[::-1] 
+                #REVERSE THE STRING  
+        return ''.join(result)  
+        #CONVERT IT IN TO THE STRING FORM 
+
