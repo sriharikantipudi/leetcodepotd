@@ -1,0 +1,32 @@
+LEETCODE PBLM 3658
+
+PROBLEM:
+You are given an integer n. Your task is to compute the GCD (greatest common divisor) of two values:
+sumOdd: the sum of the smallest n positive odd numbers.
+sumEven: the sum of the smallest n positive even numbers.
+Return the GCD of sumOdd and sumEven.
+SOLUTION:
+        class Solution {
+public:
+    int gcdOfOddEvenSums(int n) {
+        int oddsum= n*n;
+        //sum of n consecutive odd integers
+        int evensum=n*(n+1);
+        //sum of n consecutive even integers
+        while(oddsum>0 && evensum>0)
+        {
+            if(oddsum>evensum)
+            {
+                oddsum%=evensum;
+            }
+            else
+            {
+                evensum%=oddsum;
+            }
+        }    
+        if(evensum==0)return oddsum;
+        else return evensum;
+        
+    }
+    //eucledean algorithm for finding GCD
+};
