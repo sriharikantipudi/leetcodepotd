@@ -1,0 +1,39 @@
+LEETCODE PBLM 2996
+QUESTION:
+         You are given a 0-indexed array of integers nums.
+A prefix nums[0..i] is sequential if, for all 1 <= j <= i, nums[j] = nums[j - 1] + 1. In particular, the prefix consisting only of nums[0] is sequential.
+Return the smallest integer x missing from nums such that x is greater than or equal to the sum of the longest sequential prefix
+SOLUTION:
+         int missingInteger(int* nums, int numsSize) {
+    int ind=0,sum=0;
+    //finding the index where sequential prefix sum stops
+    for(int i=1;i<numsSize;i++)
+    {
+        if(nums[i-1]+1==nums[i])
+        {
+            ind++;
+            continue;
+        }
+        else
+        {
+            ind=i-1;
+            break;
+        }
+    }
+    //calculating the sum
+    for(int i=0;i<=ind;i++)
+    {
+        sum+=nums[i];
+    }
+    //checking whether sum is present in given array or not 
+    for(int i=0;i<numsSize;i++)
+    {
+        if(sum==nums[i])  //if sum present in array do sum++
+        {
+            i=-1;
+            sum++;
+        }
+    }
+    //returning the sum if it is not present in array
+    return sum;
+}
