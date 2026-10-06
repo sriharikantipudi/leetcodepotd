@@ -1,0 +1,45 @@
+\\LEETCODE PROBLEM 921
+
+PROBLEM STATEMENT:
+         A parentheses string is valid if and only if:
+It is the empty string,It can be written as AB (A concatenated with B), where A and B are valid strings, or
+It can be written as (A), where A is a valid string.You are given a parentheses string s. In one move, you can insert a parenthesis at any position of the string.
+For example, if s = "()))", you can insert an opening parenthesis to be "(()))" or a closing parenthesis to be "())))".
+Return the minimum number of moves required to make s valid.
+
+CONSTRAINTS:
+        1 <= s.length <= 1000
+        s[i] is either '(' or ')'
+
+SOLUTION:
+        #include <cmath>
+#include <stack>
+using namespace std;
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        stack <char> a;
+        a.push(s[0]);
+        int top=0;
+        for(int i=1;i<size(s);i++)
+        {
+            if(s[i]==')'&&a.size()!=0)
+            {
+                if(a.top()=='(')
+                {
+                    a.pop();
+                }
+                else
+                {
+                    a.push(s[i]);
+                }
+            }
+            else
+            {
+                 a.push(s[i]);   
+            }
+        }
+        return a.size();
+    }
+};
+        
