@@ -1,0 +1,34 @@
+LEETCODE PBLM 122
+PBLM:
+     You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can sell and buy the stock multiple times on the same day, ensuring you never hold more than one share of the stock.
+Find and return the maximum profit you can achieve.
+
+CONSTRAINTS:
+     1 <= prices.length <= 3 * 104
+     0 <= prices[i] <= 104
+
+SOLUTION:
+     #include <algorithm>
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int left,right,current_price,next_price,i=0;
+        while(i<prices.size()-1)
+        {
+            current_price=prices[i];
+            next_price=prices[i+1];
+            if (next_price>current_price)
+            {
+                profit+=next_price-current_price;
+                i+=1;
+            }
+            else
+            {
+                i+=1;
+            }
+        }
+        return profit;
+    }
+};
