@@ -1,0 +1,59 @@
+LEETCODE PBLM 45
+
+PROBLEM:  
+       You are given a 0-indexed array of integers nums of length n. You are initially positioned at index 0.
+Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at index i, you can jump to any index (i + j) where:
+0 <= j <= nums[i] and
+i + j < n
+Return the minimum number of jumps to reach index n - 1. The test cases are generated such that you can reach index n - 1.
+
+CONSTRAINTS:
+            1 <= nums.length <= 104
+            0 <= nums[i] <= 1000
+            It's guaranteed that you can reach nums[n - 1].
+
+SOLUTION:
+         #include <algorithm>
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int i=0,moves=0;
+        int n=nums.size();
+        while(i<n-1)
+        {
+            int current_ind=i;
+            if(i+nums[i]>=n-1)
+            {
+                moves+=1;
+                return moves;
+            }
+            for(int j=i+1;j<=i+nums[i];j++)
+            {
+                if(j+nums[j]>=n-1)
+                {
+                    current_ind=j;
+                    moves+=2;
+                    return moves;
+                    
+                }
+                else if(j + nums[j] > current_ind + nums[current_ind])
+                {
+                    current_ind=j;
+
+                }
+            }
+            if(current_ind!=i)
+            {
+            moves+=1;
+            i=current_ind;
+            }
+            else
+            {
+                i+=nums[i];
+                moves+=1;
+            }
+        }
+        return moves;
+    }
+    
+};
