@@ -1,0 +1,57 @@
+LEETCODE PBLM 134
+PBLM:
+    There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique.
+
+CONSTRAINTS:
+    n == gas.length == cost.length
+1 <= n <= 105
+0 <= gas[i], cost[i] <= 104
+The input is generated such that the answer is unique.
+
+SOLUTION:(GREEDY APPROACH)
+     #include <algorithm>
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int i=0,moves=0;
+        int n=nums.size();
+        while(i<n-1)
+        {
+            int current_ind=i;
+            if(i+nums[i]>=n-1)
+            {
+                moves+=1;
+                return moves;
+            }
+            for(int j=i+1;j<=i+nums[i];j++)
+            {
+                if(j+nums[j]>=n-1)
+                {
+                    current_ind=j;
+                    moves+=2;
+                    return moves;
+                    
+                }
+                else if(j + nums[j] > current_ind + nums[current_ind])
+                {
+                    current_ind=j;
+
+                }
+            }
+            if(current_ind!=i)
+            {
+            moves+=1;
+            i=current_ind;
+            }
+            else
+            {
+                i+=nums[i];
+                moves+=1;
+            }
+        }
+        return moves;
+    }
+    
+};
