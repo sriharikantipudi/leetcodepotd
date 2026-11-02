@@ -1,0 +1,89 @@
+LEETCODE PBLM 22
+PBLM: 
+     Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+CONSTRAINTS:
+     1 <= n <= 8
+
+SOLUTION:
+         
+#include <stack>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+
+    void parenthesis(vector<string>& solution, stack<char>& s,
+                     int left, int right, int n)
+    {
+        if(left == n && right == n)
+        {
+            string result = "";
+            stack<char> temp = s;
+
+            while(!temp.empty())
+            {
+                result += temp.top();
+                temp.pop();
+            }
+
+            reverse(result.begin(), result.end());
+            solution.push_back(result);
+            return;
+        }
+
+        if(left == n)
+        {
+            stack<char> temp = s;
+
+            while(right < n)
+            {
+                temp.push(')');
+                right++;
+            }
+
+            string result = "";
+
+            while(!temp.empty())
+            {
+                result += temp.top();
+                temp.pop();
+            }
+
+            reverse(result.begin(), result.end());
+            solution.push_back(result);
+            return;
+        }
+
+        if(left == right)
+        {
+            s.push('(');
+            parenthesis(solution, s, left+1, right, n);
+            s.pop();
+        }
+        else
+        {
+            // Add opening parenthesis
+            s.push('(');
+            parenthesis(solution, s, left+1, right, n);
+            s.pop();
+
+            // Add closing parenthesis
+            s.push(')');
+            parenthesis(solution, s, left, right+1, n);
+            s.pop();
+        }
+    }
+
+    vector<string> generateParenthesis(int n)
+    {
+        stack<char> s;
+        vector<string> solution;
+
+        parenthesis(solution, s, 0, 0, n);
+
+        return solution;
+    }
+};
